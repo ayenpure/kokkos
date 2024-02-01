@@ -199,6 +199,12 @@ int Impl::CudaInternal::concurrency() {
   return concurrency;
 }
 
+int CudaInternal::m_cudaArch;
+cudaDeviceProp CudaInternal::m_deviceProp;
+std::map<int, unsigned long*> CudaInternal::constantMemHostStagingPerDevice;
+std::map<int, cudaEvent_t> CudaInternal::constantMemReusablePerDevice;
+std::map<int, std::mutex> CudaInternal::constantMemMutexPerDevice;
+
 void CudaInternal::print_configuration(std::ostream &s) const {
 #if defined(KOKKOS_ENABLE_CUDA)
   s << "macro  KOKKOS_ENABLE_CUDA      : defined\n";
